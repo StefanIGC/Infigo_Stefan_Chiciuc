@@ -1,0 +1,26 @@
+﻿@using CMSPlus.Domain.Models.CommentModels;
+@model List<CommentModel>
+
+
+<div class="card mt-2">
+    <div class="card-header">
+        Comments
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            @foreach (var comment in Model.OrderByDescending(x => x.CreatedOnUtc))
+            {
+                <div class="card my-2">
+                    <div class="card-body">
+                        <p>@comment.Comment</p>
+                        <p class="text-end fst-italic">
+                            Posted by <b class="fw-bolder">@comment.FullName</b>
+                            on <b class="fw-bolder">@comment.CreatedOnUtc.Value.ToString("MMMM dd, HH:mm")</b>
+                        </p>
+                        <hr />
+                    </div>
+                </div>
+            }
+        </li>
+    </ul>
+</div>

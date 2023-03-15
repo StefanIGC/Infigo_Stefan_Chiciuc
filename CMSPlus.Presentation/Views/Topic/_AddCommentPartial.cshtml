@@ -1,0 +1,16 @@
+﻿@model CMSPlus.Domain.Models.CommentModels.CommentModel
+
+<form method="post" action="@Url.Action("AddComment")" class="card">
+    <div class="card-body">
+        @Html.Hidden("TopicSystemName", Model.TopicSystemName)
+        <div class="mb-3">
+            <label asp-for="FullName" class="form-label">Full name</label>
+            <input type="text" class="form-control" id="FullName" asp-for="FullName" required placeholder="John Doe">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Comment" class="form-label">Comment</label>
+            <textarea class="form-control" id="Comment" asp-for="Comment" required rows="3" placeholder="I really like this product..."></textarea>
+        </div>
+    </div>
+    <div class="card-footer text-end"><button type="submit" class="btn btn-primary">Add comment</button></div>
+</form>

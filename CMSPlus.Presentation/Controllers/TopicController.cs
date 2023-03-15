@@ -5,6 +5,7 @@ using CMSPlus.Domain.Models.TopicModels;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
+using CMSPlus.Domain.Models.CommentModels;
 
 namespace CMSPlus.Presentation.Controllers;
 
@@ -107,5 +108,15 @@ public class TopicController : Controller
         }
         var topicDto = _mapper.Map<TopicEntity, TopicDetailsModel>(topic);
         return View(topicDto);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddComment(CommentModel model)
+    {
+        var comment = _mapper.Map<CommentModel, CommentEntity>(model);
+        var topic = await _topicService.GetBySystemName(model.TopicSystemName);
+        comment.TopicId = topic.Id;
+        await _topicService.AddComment(comment);
+        return RedirectToAction("Details", new { systemName = model.TopicSystemName });
     }
 }
